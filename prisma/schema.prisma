@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  USER
+}
+
+model User {
+  id         String    @unique
+  email      String    @unique
+  firstName  String    @db.VarChar()
+  lastName   String?   @db.VarChar()
+  name       String    @db.VarChar()
+  about      String?
+  image      String?   @db.VarChar(255)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  delete_at  DateTime?
+
+  role UserRole @default(USER)
+
+  articles Article[]
+
+  @@map("users")
+}
+
+enum ArticleStatus {
+  DRAFT
+  PENDING
+  PUBLISHED
+  ARCHIVED
+}
+
+model Article {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title      String    @db.VarChar(255)
+  slug       String    @unique @db.VarChar(255)
+  content    Json
+  cover_img  String?   @db.VarChar(255)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  delete_at  DateTime?
+
+  status ArticleStatus
+
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@map("articles")
+}
