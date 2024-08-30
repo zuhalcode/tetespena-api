@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  app.setGlobalPrefix('api');
+  // app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
     .setTitle('Tetespena API')
@@ -14,7 +14,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('/api', app, document, {
+  SwaggerModule.setup('/swagger', app, document, {
     customCssUrl:
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
     customJs: [
