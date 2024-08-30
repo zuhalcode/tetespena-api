@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserResponseDto } from './dto/user-response';
@@ -15,7 +15,7 @@ export class UserService {
 
     try {
       const userExist = await this.prisma.user.findUnique({ where: { id } });
-      if (userExist) return { message: 'User already exist' };
+      if (userExist) throw new ConflictException('User already exist');
 
       // Create a new user
       const newUser = await this.prisma.user.create({
@@ -32,6 +32,12 @@ export class UserService {
       return { data: newUser, message: 'User saved successfully' };
     } catch (e) {
       console.log(e);
+
+      // Only rethrow the original exception if it's a known one
+      if (e instanceof ConflictException) throw e;
+
+      // Throw a general internal server error for other cases
+      throw new ConflictException('An unexpected error occurred');
     }
   }
 

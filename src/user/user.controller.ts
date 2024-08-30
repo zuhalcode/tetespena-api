@@ -5,7 +5,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { Body, Controller, Post } from '@nestjs/common';
 
 import {
-  ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiTags,
@@ -26,12 +25,6 @@ export class UserController {
       firstName: 'zuhal',
       lastName: 'code',
       name: 'zuhal code',
-    },
-  })
-  @ApiBadRequestResponse({
-    description: 'User created failed, Try again!',
-    example: {
-      message: 'User created failed',
     },
   })
   @ApiConflictResponse({

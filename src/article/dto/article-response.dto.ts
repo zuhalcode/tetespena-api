@@ -50,4 +50,10 @@ export class ArticleResponseDto {
   })
   @IsString()
   cover_img: string;
+
+  @ApiProperty({
+    example: '2024-08-24T04:50:35.480Z',
+  })
+  @IsString()
+  created_at: Date;
 }
