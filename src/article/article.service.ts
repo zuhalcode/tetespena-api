@@ -4,13 +4,13 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { WebResponse } from 'src/model/web.model';
+import { WebResponse } from '../model/web.model';
 import { ArticleResponseDto } from './dto/article-response.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-import { generateSlug } from 'src/common/utils/helper';
+import { generateSlug } from '../common/utils/helper';
 
 @Injectable()
 export class ArticleService {

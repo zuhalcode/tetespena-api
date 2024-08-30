@@ -1,8 +1,8 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { UserResponseDto } from './dto/user-response';
-import { WebResponse } from 'src/model/web.model';
+import { WebResponse } from '../model/web.model';
 
 @Injectable()
 export class UserService {
