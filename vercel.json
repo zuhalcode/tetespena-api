@@ -3,14 +3,14 @@
   "buildCommand": "npx prisma generate && nest build",
   "builds": [
     {
-      "src": "src/api/index.js",
+      "src": "api/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/api/index.js"
+      "dest": "api/index.js"
     }
   ]
 }
